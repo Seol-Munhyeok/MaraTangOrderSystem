@@ -1,0 +1,6 @@
+spring:
+  application:
+    name=MaraTangOrderSystem
+  config:
+    activate:
+      on-profile: secret

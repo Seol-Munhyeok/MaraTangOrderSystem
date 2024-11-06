@@ -1,0 +1,17 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>마라탕 메뉴</title>
+</head>
+<body>
+    <h1>마라탕 재료 목록</h1>
+    <div th:each="ingredient : ${ingredients}">
+        <div>
+            <h3 th:text="${ingredient.name}">재료 이름</h3>
+            <p th:text="'가격: ' + ${ingredient.price} + '원'">가격 정보</p>
+        </div>
+    </div>
+</body>
+</html>

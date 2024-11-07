@@ -24,7 +24,17 @@ public class OrderController {
     public IngredientDto addOrder(@PathVariable String ingredientName) {
         Integer ingredientPrice = IngredientType.valueOf(ingredientName).getPrice();
         Ingredient ingredient = new Ingredient(ingredientName, ingredientPrice);
+
+        // TODO : DB에 데이터 추가하는 로직 구현
+
         return new IngredientDto(ingredient.getName(), ingredient.getPrice());
+
+
+
     }
+
+
+
+
 
 }

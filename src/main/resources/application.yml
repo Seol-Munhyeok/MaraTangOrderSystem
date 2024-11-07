@@ -1,13 +1,11 @@
 spring:
   application:
-    name=MaraTangOrderSystem
+    name: MaraTangOrderSystem
   config:
-    activate:
-      on-profile: secret
+    import: "application-secret.yml"
   datasource:
-    url:
-    username: your_username
-    password: your_password
+    url: jdbc:mysql://127.0.0.1:3305/mara_tang_order?serverTimezone=UTC
+    username: root
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:

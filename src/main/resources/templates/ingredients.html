@@ -16,9 +16,9 @@
             <label th:for="'quantity-' + ${ingredient.id}">수량:</label>
             <input type="number" th:id="'quantity-' + ${ingredient.id}"
                    th:name="'quantities[' + ${ingredient.id} + ']'" min="0" value="0">
+            <button type="button" th:onclick="'location.href=\'/order/add' + ${ingredient.id}' + '\''">주문 추가</button>
         </div>
     </div>
-        <button type="submit">주문하기</button>
     </form>
 </body>
 </html>

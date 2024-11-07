@@ -12,11 +12,9 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne
-    @JoinColumn(name = "ingredient_id")
-    private Ingredient ingredient;
-    private Integer servingSize;
-    private Integer spicyLevel;
+
+    private String ingredientName;
+    private Integer ingredientPrice;
     private Integer quantity;
     private Integer totalPrice;
 }

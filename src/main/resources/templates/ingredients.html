@@ -6,12 +6,19 @@
     <title>마라탕 메뉴</title>
 </head>
 <body>
-    <h1>마라탕 재료 목록</h1>
+    <h1>마라탕 재료 주문하기</h1>
+    <form action="/order" method="post">
     <div th:each="ingredient : ${ingredients}">
         <div>
             <h3 th:text="${ingredient.name}">재료 이름</h3>
             <p th:text="'가격: ' + ${ingredient.price} + '원'">가격 정보</p>
+
+            <label th:for="'quantity-' + ${ingredient.id}">수량:</label>
+            <input type="number" th:id="'quantity-' + ${ingredient.id}"
+                   th:name="'quantities[' + ${ingredient.id} + ']'" min="0" value="0">
         </div>
     </div>
+        <button type="submit">주문하기</button>
+    </form>
 </body>
 </html>

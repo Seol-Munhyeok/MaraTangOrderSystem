@@ -16,7 +16,7 @@
             <label th:for="'quantity-' + ${ingredient.name}">수량:</label>
             <input type="number" data-name="[[${ingredient.name}]]" min="0" value="0">
 
-            <button type="button" onclick="addIngredient('[[${ingredient.name}]]')">주문 추가</button>
+            <button type="button" th:attr="data-ingredient-name=${ingredient.name}" onclick="addIngredient(this)">주문 추가</button>
 
         </div>
     </div>

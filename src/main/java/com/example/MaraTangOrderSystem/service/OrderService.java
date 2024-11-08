@@ -12,7 +12,9 @@ public class OrderService {
         this.orderRepository = orderRepository;
     }
 
-    public Order saveOrder(Order order) {
+    public Order saveOrder(String ingredientName, Integer ingredientPrice, Integer quantity) {
+        Integer totalPrice = calculateTotalPrice(ingredientPrice, quantity);
+        Order order = new Order(ingredientName, ingredientPrice, quantity, totalPrice);
         return orderRepository.save(order);
     }
 }

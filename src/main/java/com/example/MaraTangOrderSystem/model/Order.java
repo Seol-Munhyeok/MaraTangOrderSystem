@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @ToString
 @Entity
@@ -17,4 +16,12 @@ public class Order {
     private Integer ingredientPrice;
     private Integer quantity;
     private Integer totalPrice;
+
+    public Order(String ingredientName, Integer ingredientPrice, Integer quantity, Integer totalPrice) {
+        this.ingredientName = ingredientName;
+        this.ingredientPrice = ingredientPrice;
+        this.quantity = quantity;
+        this.totalPrice = totalPrice;
+    }
+
 }

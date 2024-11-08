@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>마라탕 메뉴</title>
-    <script src="/js/addOrder.js"></script>
 </head>
 <body>
     <h1>마라탕 재료 주문하기</h1>
@@ -18,10 +17,11 @@
             <input type="number" th:id="'quantity-' + ${ingredient.name}"
                    th:name="'quantities[' + ${ingredient.name} + ']'" min="0" value="0">
 
-            <button type="button" th:onclick="'location.href=\'/order/add/' + ' + ${ingredient.name}'">주문 추가</button>
+            <button type="button" th:onclick="addOrder('[[${ingredient.name}]]')">주문 추가</button>
         </div>
     </div>
         <button type="button" th:onclick="'location.href=\'/order/view/'">주문 조회</button>
     </form>
+    <script src="/js/addOrder.js"></script>
 </body>
 </html>

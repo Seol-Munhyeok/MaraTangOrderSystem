@@ -23,7 +23,6 @@ public class OrderController {
         Integer ingredientPrice = IngredientType.valueOf(ingredientName).getPrice();
         // DB에 주문 내용 저장
         orderService.saveOrder(ingredientName, ingredientPrice, quantity);
-
         return new OrderDto(ingredientName, ingredientPrice,quantity);
     }
 

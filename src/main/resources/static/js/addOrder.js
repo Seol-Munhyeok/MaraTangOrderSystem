@@ -1,10 +1,13 @@
-function addIngredient(ingredientName) {
-    fetch(`/order/add/${ingredientName}`, {
+function addOrder(ingredientName) {
+    const quantityInput = document.querySelector(`#quantity-${ingredientName}`);
+    const quantity = quantityInput ? quantityInput.value : 1;
+
+    fetch(`/order/add/${ingredientName}?quantity=${quantity}`, {
         method: 'POST'
     })
         .then(response => response.json())
         .then(data => {
-            alert(`${data.name} 추가 완료 (가격: ${data.price}원)`);
+            alert(`${data.name} 추가 완료 (가격: ${data.price}원), 수량: ${quantity}`);
         })
         .catch(error => {
             console.error('Error:', error);

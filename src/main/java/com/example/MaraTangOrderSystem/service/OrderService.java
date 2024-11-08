@@ -17,4 +17,8 @@ public class OrderService {
         Order order = new Order(ingredientName, ingredientPrice, quantity, totalPrice);
         return orderRepository.save(order);
     }
+
+    public Integer calculateTotalPrice(Integer ingredientPrice, Integer quantity) {
+        return quantity * ingredientPrice;
+    }
 }

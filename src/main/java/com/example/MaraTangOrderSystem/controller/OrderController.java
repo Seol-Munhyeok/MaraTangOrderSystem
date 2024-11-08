@@ -1,8 +1,6 @@
 package com.example.MaraTangOrderSystem.controller;
 
-import com.example.MaraTangOrderSystem.model.Ingredient;
-import com.example.MaraTangOrderSystem.model.IngredientDto;
-import com.example.MaraTangOrderSystem.model.IngredientType;
+import com.example.MaraTangOrderSystem.model.*;
 import com.example.MaraTangOrderSystem.service.OrderService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,16 +19,12 @@ public class OrderController {
 
     @PostMapping("/add/{ingredientName}")
     @ResponseBody
-    public IngredientDto addOrder(@PathVariable String ingredientName) {
+    public OrderDto addOrder(@PathVariable String ingredientName, Integer quantity) {
         Integer ingredientPrice = IngredientType.valueOf(ingredientName).getPrice();
-        Ingredient ingredient = new Ingredient(ingredientName, ingredientPrice);
+        // DB에 주문 내용 저장
+        orderService.saveOrder(ingredientName, ingredientPrice, quantity);
 
-        // TODO : DB에 데이터 추가하는 로직 구현
-
-        return new IngredientDto(ingredient.getName(), ingredient.getPrice());
-
-
-
+        return new OrderDto(ingredientName, ingredientPrice,quantity);
     }
 
 

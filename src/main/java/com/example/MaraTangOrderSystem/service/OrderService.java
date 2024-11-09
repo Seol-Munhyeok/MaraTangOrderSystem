@@ -4,6 +4,7 @@ import com.example.MaraTangOrderSystem.model.Order;
 import com.example.MaraTangOrderSystem.model.OrderDto;
 import com.example.MaraTangOrderSystem.repository.OrderRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,5 +35,17 @@ public class OrderService {
             orderDtos.add(orderDto);
         }
         return orderDtos;
+    }
+
+    public OrderDto updateOrderQuantity(Long orderId, Integer newQuantity) {
+        Order order = orderRepository.findById(orderId).orElseThrow();
+        order.setQuantity(newQuantity);
+        order.setTotalPrice(calculateTotalPrice(order.getIngredientPrice(), newQuantity));
+        orderRepository.save(order);
+        return new OrderDto(order.getIngredientName(), order.getTotalPrice(), order.getQuantity());
+    }
+
+    public void deleteOrder(Long orderId) {
+        orderRepository.deleteById(orderId);
     }
 }

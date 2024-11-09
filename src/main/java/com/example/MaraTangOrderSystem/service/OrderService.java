@@ -1,8 +1,11 @@
 package com.example.MaraTangOrderSystem.service;
 
 import com.example.MaraTangOrderSystem.model.Order;
+import com.example.MaraTangOrderSystem.model.OrderDto;
 import com.example.MaraTangOrderSystem.repository.OrderRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class OrderService {
@@ -20,5 +23,9 @@ public class OrderService {
 
     public Integer calculateTotalPrice(Integer ingredientPrice, Integer quantity) {
         return quantity * ingredientPrice;
+    }
+
+    public List<OrderDto> getAllOrders() {
+
     }
 }

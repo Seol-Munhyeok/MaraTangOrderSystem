@@ -4,7 +4,6 @@ import com.example.MaraTangOrderSystem.model.Order;
 import com.example.MaraTangOrderSystem.model.OrderDto;
 import com.example.MaraTangOrderSystem.repository.OrderRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,10 +16,10 @@ public class OrderService {
         this.orderRepository = orderRepository;
     }
 
-    public Order saveOrder(String ingredientName, Integer ingredientPrice, Integer quantity) {
+    public void saveOrder(String ingredientName, Integer ingredientPrice, Integer quantity) {
         Integer totalPrice = calculateTotalPrice(ingredientPrice, quantity);
         Order order = new Order(ingredientName, ingredientPrice, quantity, totalPrice);
-        return orderRepository.save(order);
+        orderRepository.save(order);
     }
 
     public Integer calculateTotalPrice(Integer ingredientPrice, Integer quantity) {

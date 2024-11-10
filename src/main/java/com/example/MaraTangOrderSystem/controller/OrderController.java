@@ -40,5 +40,4 @@ public class OrderController {
     public void cancelOrder(@PathVariable Long orderId) {
         orderService.deleteOrder(orderId);
     }
-
 }

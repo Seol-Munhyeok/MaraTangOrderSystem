@@ -4,16 +4,16 @@ import lombok.Getter;
 
 @Getter
 public enum IngredientType {
-    BEEF("BEEF", 2000),
-    LAMB_MEAT("LAMB_MEAT", 3000),
-    PEANUT_SAUCE("PEANUT_SAUCE", 500),
-    CHILI_OIL("CHILI_OIL", 500),
-    CHUNG_GYEONG_CHAE("CHUNG_GYEONG_CHAE", 2000),
-    RAMYEON_NOODLES("RAMYEON_NOODLES", 1000),
-    SSUK_GAT("SSUK_GAT", 2000),
-    SAESONG_I_MUSHROOM("SAESONG_I_MUSHROOM", 2000),
-    DRIED_TOFU("DRIED_TOFU", 2000),
-    FRIED_TOFU("FRIED_TOFU", 1000);
+    BEEF("소고기", 2000),
+    LAMB_MEAT("양고기", 3000),
+    PEANUT_SAUCE("땅콩소스", 500),
+    CHILI_OIL("고추기름", 500),
+    CHUNG_GYEONG_CHAE("청경채", 2000),
+    RAMYEON_NOODLES("라면사리", 1000),
+    SSUK_GAT("쑥갓", 2000),
+    SAESONG_I_MUSHROOM("새송이버섯", 2000),
+    DRIED_TOFU("건두부", 2000),
+    FRIED_TOFU("유부", 1000);
 
     private final String name;
     private final int price;

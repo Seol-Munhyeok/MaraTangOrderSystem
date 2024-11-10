@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/order")
+@RequestMapping("/orders")
 public class OrderController {
     private final OrderService orderService;
     public OrderController(OrderService orderService) {
         this.orderService = orderService;
     }
 
-    @PostMapping("/add/{ingredientName}")
+    @PostMapping("/{ingredientName}")
     @ResponseBody
     public OrderDto addOrder(@PathVariable String ingredientName, @RequestParam Integer quantity) {
         Integer ingredientPrice = IngredientType.valueOf(ingredientName).getPrice();
@@ -23,19 +23,19 @@ public class OrderController {
         return new OrderDto(ingredientName, ingredientPrice,quantity);
     }
 
-    @GetMapping("/view")
+    @GetMapping
     @ResponseBody
     public List<OrderDto> viewOrders() {
         return orderService.getAllOrders();
     }
 
-    @PostMapping("/edit/{orderId}")
+    @PutMapping("/{orderId}")
     @ResponseBody
     public OrderDto editOrder(@PathVariable Long orderId, @RequestParam Integer newQuantity) {
         return orderService.updateOrderQuantity(orderId, newQuantity);
     }
 
-    @PostMapping("/cancel/{orderId}")
+    @DeleteMapping("/{orderId}")
     @ResponseBody
     public void cancelOrder(@PathVariable Long orderId) {
         orderService.deleteOrder(orderId);

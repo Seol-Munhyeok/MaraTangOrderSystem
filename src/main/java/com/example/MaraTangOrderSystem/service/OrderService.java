@@ -22,18 +22,25 @@ public class OrderService {
         orderRepository.save(order);
     }
 
-    public Integer calculateTotalPrice(Integer ingredientPrice, Integer quantity) {
+    private Integer calculateTotalPrice(Integer ingredientPrice, Integer quantity) {
         return quantity * ingredientPrice;
     }
 
     public List<OrderDto> getAllOrders() {
         List<Order> orders = orderRepository.findAll();
+        return convertToOrderDtos(orders);
+    }
+
+    private List<OrderDto> convertToOrderDtos(List<Order> orders) {
         List<OrderDto> orderDtos = new ArrayList<>();
         for (Order order : orders) {
-            OrderDto orderDto = new OrderDto(order.getIngredientName(), order.getTotalPrice(), order.getQuantity());
-            orderDtos.add(orderDto);
+            orderDtos.add(convertToOrderDto(order));
         }
         return orderDtos;
+    }
+
+    private OrderDto convertToOrderDto(Order order) {
+        return new OrderDto(order.getIngredientName(), order.getTotalPrice(), order.getQuantity());
     }
 
     public OrderDto updateOrderQuantity(Long orderId, Integer newQuantity) {

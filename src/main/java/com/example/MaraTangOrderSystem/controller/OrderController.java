@@ -9,6 +9,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/orders")
+@ResponseBody
 public class OrderController {
     private final OrderService orderService;
     public OrderController(OrderService orderService) {
@@ -16,7 +17,7 @@ public class OrderController {
     }
 
     @PostMapping("/{ingredientName}")
-    @ResponseBody
+
     public OrderDto addOrder(@PathVariable String ingredientName, @RequestParam Integer quantity) {
         Integer ingredientPrice = IngredientType.valueOf(ingredientName).getPrice();
         orderService.saveOrder(ingredientName, ingredientPrice, quantity);
@@ -24,19 +25,16 @@ public class OrderController {
     }
 
     @GetMapping
-    @ResponseBody
     public List<OrderDto> viewOrders() {
         return orderService.getAllOrders();
     }
 
     @PutMapping("/{orderId}")
-    @ResponseBody
     public OrderDto editOrder(@PathVariable Long orderId, @RequestParam Integer newQuantity) {
         return orderService.updateOrderQuantity(orderId, newQuantity);
     }
 
     @DeleteMapping("/{orderId}")
-    @ResponseBody
     public void cancelOrder(@PathVariable Long orderId) {
         orderService.deleteOrder(orderId);
     }

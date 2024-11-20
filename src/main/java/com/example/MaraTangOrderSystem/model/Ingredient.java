@@ -7,8 +7,6 @@ import lombok.*;
 @Table(name="ingredients")
 @Getter
 @ToString
-
-
 public class Ingredient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

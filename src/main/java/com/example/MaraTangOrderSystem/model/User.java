@@ -20,13 +20,17 @@ public class User {
     private String name;
     private String phoneNumber;
 
+    @Column(columnDefinition = "INTEGER CHECK (spicinessLevel BETWEEN 0 AND 3)")
+    private Integer spicinessLevel;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Order> orders = new ArrayList<>();
 
     protected User() {}
-    public User(String name, String phoneNumber, List<Order> orders) {
+    public User(String name, String phoneNumber, Integer spicinessLevel, List<Order> orders) {
         this.name = name;
         this.phoneNumber = phoneNumber;
+        this.spicinessLevel = spicinessLevel;
         this.orders = orders;
     }
 }

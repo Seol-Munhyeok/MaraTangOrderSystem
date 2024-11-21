@@ -17,14 +17,17 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String name;
+
     private String phoneNumber;
 
-    @Column(columnDefinition = "INTEGER CHECK (spicinessLevel BETWEEN 0 AND 3)")
+    @Column(columnDefinition = "INTEGER CHECK (spicinessLevel BETWEEN 0 AND 3)",
+            nullable = false)
     private Integer spicinessLevel;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Order> orders = new ArrayList<>();
+    @OneToMany(mappedBy = "user_id", cascade = CascadeType.ALL)
+    private List<Order> orders;
 
     protected User() {}
     public User(String name, String phoneNumber, Integer spicinessLevel, List<Order> orders) {

@@ -18,19 +18,15 @@ public class Order {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "ingredient_id", nullable = false)
-    private Ingredient ingredient;
+    @OneToMany(mappedBy = "order_id", cascade = CascadeType.ALL)
+    private List<OrderDetail> orderDetails;
 
-    private Integer quantity;
     private Integer totalPrice;
 
     protected Order() {}
 
-    public Order(User user, Ingredient ingredient, Integer quantity, Integer totalPrice) {
+    public Order(User user, Integer totalPrice) {
         this.user = user;
-        this.ingredient = ingredient;
-        this.quantity = quantity;
         this.totalPrice = totalPrice;
     }
 }

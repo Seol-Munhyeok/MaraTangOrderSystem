@@ -3,6 +3,8 @@ package com.example.MaraTangOrderSystem.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Table(name="ingredients")
 @Getter
@@ -12,8 +14,14 @@ public class Ingredient {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false)
     private Integer price;
+
+    @OneToMany(mappedBy = "ingredient_id", cascade = CascadeType.ALL)
+    private List<OrderDetail> orderDetails;
 
     protected Ingredient() {}
     public Ingredient(String name, Integer price) {

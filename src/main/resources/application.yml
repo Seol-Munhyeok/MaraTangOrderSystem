@@ -4,7 +4,7 @@ spring:
   config:
     import: "application-secret.yml"
   datasource:
-    url: jdbc:mysql://13.124.165.57:3306/mara_tang_order?serverTimezone=UTC
+    url: jdbc:mysql://127.0.0.1:3306/mara_tang_order?serverTimezone=UTC
     username: root
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:

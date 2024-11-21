@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/orders")
-@ResponseBody
+//@RequestMapping("/orders")
+//@ResponseBody
 public class OrderController {
-    private final OrderService orderService;
+    /*private final OrderService orderService;
     public OrderController(OrderService orderService) {
         this.orderService = orderService;
     }
@@ -37,5 +37,5 @@ public class OrderController {
     @DeleteMapping("/{orderId}")
     public void cancelOrder(@PathVariable Long orderId) {
         orderService.deleteOrder(orderId);
-    }
+    }*/
 }

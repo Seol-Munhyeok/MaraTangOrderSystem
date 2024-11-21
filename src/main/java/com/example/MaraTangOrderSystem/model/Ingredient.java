@@ -20,7 +20,7 @@ public class Ingredient {
     @Column(nullable = false)
     private Integer price;
 
-    @OneToMany(mappedBy = "ingredient_id", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "ingredient", cascade = CascadeType.ALL)
     private List<OrderDetail> orderDetails;
 
     protected Ingredient() {}

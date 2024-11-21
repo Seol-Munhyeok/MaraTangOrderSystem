@@ -10,4 +10,9 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+      format_sql: true
+      use_sql_comments: true
     show-sql: true
+  logging:
+    level:
+      org.hibernate.SQL: debug

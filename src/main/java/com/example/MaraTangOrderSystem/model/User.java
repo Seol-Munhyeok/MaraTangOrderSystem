@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.ToString;
 
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 @Table(name = "users")
@@ -33,6 +34,10 @@ public class User {
         this.phoneNumber = phoneNumber;
         this.spicinessLevel = spicinessLevel;
         this.orders = orders;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber != null ? phoneNumber : "N/A";
     }
 }
 

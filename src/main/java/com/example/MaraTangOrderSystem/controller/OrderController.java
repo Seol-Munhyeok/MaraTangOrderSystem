@@ -1,23 +1,21 @@
 package com.example.MaraTangOrderSystem.controller;
 
+import com.example.MaraTangOrderSystem.dto.OrderDto;
 import com.example.MaraTangOrderSystem.model.*;
 import com.example.MaraTangOrderSystem.service.OrderService;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
-//@RequestMapping("/orders")
-//@ResponseBody
+@RestController
+@RequestMapping("/orders")
 public class OrderController {
-    /*private final OrderService orderService;
+    private final OrderService orderService;
     public OrderController(OrderService orderService) {
         this.orderService = orderService;
     }
 
     @PostMapping("/{ingredientName}")
-
     public OrderDto addOrder(@PathVariable String ingredientName, @RequestParam Integer quantity) {
         Integer ingredientPrice = IngredientType.valueOf(ingredientName).getPrice();
         orderService.saveOrder(ingredientName, ingredientPrice, quantity);
@@ -37,5 +35,5 @@ public class OrderController {
     @DeleteMapping("/{orderId}")
     public void cancelOrder(@PathVariable Long orderId) {
         orderService.deleteOrder(orderId);
-    }*/
+    }
 }

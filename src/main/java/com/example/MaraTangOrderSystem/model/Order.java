@@ -21,7 +21,8 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderDetail> orderDetails;
 
-    private Integer totalPrice;
+    @Setter
+    private Integer totalPrice = 0;
 
     protected Order() {}
 
@@ -29,6 +30,4 @@ public class Order {
         this.user = user;
         this.totalPrice = totalPrice;
     }
-
-
 }

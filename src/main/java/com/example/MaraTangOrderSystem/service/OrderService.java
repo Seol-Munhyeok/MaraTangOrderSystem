@@ -3,6 +3,7 @@ package com.example.MaraTangOrderSystem.service;
 import com.example.MaraTangOrderSystem.Converter.DtoConverter;
 import com.example.MaraTangOrderSystem.model.Order;
 import com.example.MaraTangOrderSystem.dto.OrderDto;
+import com.example.MaraTangOrderSystem.model.OrderDetail;
 import com.example.MaraTangOrderSystem.repository.IngredientRepository;
 import com.example.MaraTangOrderSystem.repository.OrderRepository;
 import com.example.MaraTangOrderSystem.repository.UserRepository;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class OrderService {
@@ -26,8 +28,21 @@ public class OrderService {
 
     @Transactional
     public OrderDto saveOrder(Order order) {
-        // TODO
-        orderRepository.save(order);
+        int totalPrice = 0;
+        for (OrderDetail orderDetail : order.getOrderDetails()) {
+            if (isMatchingOrder(orderDetail, order)) {
+                int price = orderDetail.getIngredient().getPrice();
+                int quantity = orderDetail.getQuantity();
+                totalPrice += calculateTotalPrice(price, quantity);
+            }
+        }
+        order.setTotalPrice(totalPrice);
+        Order savedOrder = orderRepository.save(order);
+        return DtoConverter.convertToOrderDto(savedOrder);
+    }
+
+    private boolean isMatchingOrder(OrderDetail orderDetail, Order order) {
+        return Objects.equals(orderDetail.getOrder().getId(), order.getId());
     }
 
     private Integer calculateTotalPrice(Integer ingredientPrice, Integer quantity) {

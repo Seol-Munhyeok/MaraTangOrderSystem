@@ -28,44 +28,53 @@ public class OrderService {
 
     @Transactional
     public OrderDto saveOrder(Order order) {
+        int totalPrice = calculateOrderTotalPrice(order);
+        order.setTotalPrice(totalPrice);
+        Order savedOrder = orderRepository.save(order);
+        return DtoConverter.convertToOrderDto(savedOrder);
+    }
+
+    @Transactional
+    public OrderDto updateOrder(Long orderId, Order updatedOrder) {
+        Order previousOrder = orderRepository.findById(orderId).orElseThrow();
+
+        previousOrder.getOrderDetails().clear();
+        previousOrder.getOrderDetails().addAll(updatedOrder.getOrderDetails());
+
+        int totalPrice = calculateOrderTotalPrice(previousOrder);
+        previousOrder.setTotalPrice(totalPrice);
+
+        Order savedOrder =  orderRepository.save(previousOrder);
+        return DtoConverter.convertToOrderDto(savedOrder);
+    }
+
+    @Transactional
+    public void deleteOrder(Long orderId) {
+        orderRepository.deleteById(orderId);
+    }
+
+    private Integer calculateOrderTotalPrice(Order order) {
         int totalPrice = 0;
         for (OrderDetail orderDetail : order.getOrderDetails()) {
             if (isMatchingOrder(orderDetail, order)) {
                 int price = orderDetail.getIngredient().getPrice();
                 int quantity = orderDetail.getQuantity();
-                totalPrice += calculateTotalPrice(price, quantity);
+                totalPrice += calculateSubtotal(price, quantity);
             }
         }
-        order.setTotalPrice(totalPrice);
-        Order savedOrder = orderRepository.save(order);
-        return DtoConverter.convertToOrderDto(savedOrder);
+        return totalPrice;
     }
 
     private boolean isMatchingOrder(OrderDetail orderDetail, Order order) {
         return Objects.equals(orderDetail.getOrder().getId(), order.getId());
     }
 
-    private Integer calculateTotalPrice(Integer ingredientPrice, Integer quantity) {
+    private Integer calculateSubtotal(Integer ingredientPrice, Integer quantity) {
         return quantity * ingredientPrice;
     }
 
     public List<OrderDto> getAllOrders() {
         List<Order> orders = orderRepository.findAll();
         return DtoConverter.convertToOrderDtos(orders);
-    }
-
-    @Transactional
-    public OrderDto updateOrder(Long orderId, Order updatedOrder) {
-        Order previousOrder = orderRepository.findById(orderId).orElseThrow();
-        // 이전에 getOrderDetails에 있는 내용을 삭제하고 updatedOrder의 값으로 수정
-
-        // 다시 계산한 최종 가격을 previousOrder에 반영하고 previousOrder를 리턴
-
-        orderRepository.save(previousOrder);
-        return new OrderDto(order.getIngredientName(), order.getTotalPrice(), order.getQuantity());
-    }
-
-    public void deleteOrder(Long orderId) {
-        orderRepository.deleteById(orderId);
     }
 }

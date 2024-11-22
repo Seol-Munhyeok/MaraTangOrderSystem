@@ -5,4 +5,4 @@ import com.example.MaraTangOrderSystem.model.OrderDetail;
 
 import java.util.List;
 
-public record UserDto(Long orderId, String name, String phoneNumber, Integer spicinessLevel, List<Order> orders) {}
+public record UserDto(Long userId, String phoneNumber, Integer spicinessLevel, List<Order> orders) {}

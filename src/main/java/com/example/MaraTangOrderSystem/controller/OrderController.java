@@ -19,19 +19,4 @@ public class OrderController {
     public OrderResponseDto addOrder(@RequestBody OrderRequestDto orderRequestDto) {
         return orderService.saveOrder(orderRequestDto);
     }
-
-    @GetMapping
-    public List<OrderResponseDto> viewOrders() {
-        return orderService.getAllOrders();
-    }
-
-    @PutMapping("/{orderId}")
-    public OrderResponseDto editOrder(@RequestBody OrderRequestDto updatedOrderRequestDto) {
-        return orderService.updateOrder(updatedOrderRequestDto);
-    }
-
-    @DeleteMapping("/{orderId}")
-    public void cancelOrder(@PathVariable Long orderId) {
-        orderService.deleteOrder(orderId);
-    }
 }

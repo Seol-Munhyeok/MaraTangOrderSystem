@@ -25,7 +25,6 @@ public class DtoConverter {
     public static UserDto convertToUserDto(User user) {
         return new UserDto(
                 user.getId(),
-                user.getName(),
                 user.getPhoneNumber(),
                 user.getSpicinessLevel(),
                 user.getOrders());

@@ -1,5 +1,7 @@
 package com.example.MaraTangOrderSystem.service;
 
+import com.example.MaraTangOrderSystem.Converter.DtoConverter;
+import com.example.MaraTangOrderSystem.dto.UserDto;
 import com.example.MaraTangOrderSystem.model.User;
 import com.example.MaraTangOrderSystem.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -12,8 +14,10 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User saveUser(User user) {
-        return userRepository.save(user);
+    public UserDto saveUser(UserDto userDto) {
+        User user = userRepository.findById(userDto.userId()).orElseThrow();
+        userRepository.save(user);
+        return DtoConverter.convertToUserDto(user);
     }
 
     public User getUserById(Long id) {

@@ -1,10 +1,10 @@
 package com.example.MaraTangOrderSystem.Converter;
 
-import com.example.MaraTangOrderSystem.dto.IngredientDto;
+import com.example.MaraTangOrderSystem.dto.*;
 import com.example.MaraTangOrderSystem.dto.OrderDto;
-import com.example.MaraTangOrderSystem.dto.UserDto;
 import com.example.MaraTangOrderSystem.model.Ingredient;
 import com.example.MaraTangOrderSystem.model.Order;
+import com.example.MaraTangOrderSystem.model.OrderDetail;
 import com.example.MaraTangOrderSystem.model.User;
 
 import java.util.ArrayList;
@@ -19,15 +19,44 @@ public class DtoConverter {
         return orderDtos;
     }
 
-    public static OrderDto convertToOrderDto(Order order) {
-        return new OrderDto(order.getId(), order.getUser(), order.getOrderDetails(), order.getTotalPrice());
+    public static OrderResponseDto convertToOrderResponseDto(Order order) {
+        return new OrderResponseDto(
+                order.getId(),
+                order.getUser().getId(),
+                order.getTotalPrice()
+        );
+    }
+
+    public static OrderRequestDto convertToOrderRequestDto(Order order) {
+        return new OrderRequestDto(
+                order.getId(),
+                order.getUser().getId()
+        );
     }
 
     public static UserDto convertToUserDto(User user) {
-        return new UserDto(user.getId(), user.getName(), user.getPhoneNumber(), user.getSpicinessLevel(), user.getOrders());
+        return new UserDto(
+                user.getId(),
+                user.getName(),
+                user.getPhoneNumber(),
+                user.getSpicinessLevel(),
+                user.getOrders());
     }
 
     public static IngredientDto convertToUserDto(Ingredient ingredient) {
-        return new IngredientDto(ingredient.getId(), ingredient.getName(), ingredient.getPrice(), ingredient.getOrderDetails());
+        return new IngredientDto(
+                ingredient.getId(),
+                ingredient.getName(),
+                ingredient.getPrice(),
+                ingredient.getOrderDetails());
+    }
+
+    public static OrderDetailDto convertToOrderDetailDto(OrderDetail orderDetail) {
+        return new OrderDetailDto(
+                orderDetail.getIngredient().getId(),
+                orderDetail.getIngredient().getName(),
+                orderDetail.getQuantity(),
+                orderDetail.getIngredient().getPrice()
+        );
     }
 }

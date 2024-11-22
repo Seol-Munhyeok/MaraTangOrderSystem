@@ -21,13 +21,9 @@ import java.util.stream.Collectors;
 @Service
 public class OrderService {
     private final OrderRepository orderRepository;
-    private final IngredientRepository ingredientRepository;
-    private final UserRepository userRepository;
 
     public OrderService(OrderRepository orderRepository, IngredientRepository ingredientRepository, UserRepository userRepository) {
         this.orderRepository = orderRepository;
-        this.ingredientRepository = ingredientRepository;
-        this.userRepository = userRepository;
     }
 
     @Transactional

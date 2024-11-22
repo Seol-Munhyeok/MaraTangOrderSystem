@@ -1,6 +1,7 @@
 package com.example.MaraTangOrderSystem.service;
 
 import com.example.MaraTangOrderSystem.Converter.DtoConverter;
+import com.example.MaraTangOrderSystem.dto.OrderRequestDto;
 import com.example.MaraTangOrderSystem.model.Order;
 import com.example.MaraTangOrderSystem.dto.OrderDto;
 import com.example.MaraTangOrderSystem.model.OrderDetail;
@@ -27,7 +28,7 @@ public class OrderService {
     }
 
     @Transactional
-    public OrderDto saveOrder(Order order) {
+    public OrderRequestDto saveOrder(Order order) {
         int totalPrice = calculateOrderTotalPrice(order);
         order.setTotalPrice(totalPrice);
         Order savedOrder = orderRepository.save(order);

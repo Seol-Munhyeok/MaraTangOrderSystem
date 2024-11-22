@@ -1,6 +1,8 @@
 package com.example.MaraTangOrderSystem.controller;
 
 import com.example.MaraTangOrderSystem.dto.OrderDto;
+import com.example.MaraTangOrderSystem.dto.OrderRequestDto;
+import com.example.MaraTangOrderSystem.dto.OrderResponseDto;
 import com.example.MaraTangOrderSystem.model.*;
 import com.example.MaraTangOrderSystem.service.OrderService;
 import org.springframework.web.bind.annotation.*;
@@ -15,11 +17,9 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @PostMapping("/{ingredientName}")
-    public OrderDto addOrder(@PathVariable String ingredientName, @RequestParam Integer quantity) {
-        Integer ingredientPrice = IngredientType.valueOf(ingredientName).getPrice();
-        orderService.saveOrder(ingredientName, ingredientPrice, quantity);
-        return new OrderDto(ingredientName, ingredientPrice,quantity);
+    @PostMapping
+    public OrderResponseDto addOrder(@RequestBody OrderRequestDto orderRequestDto) {
+        return orderService.saveOrder(orderRequestDto);
     }
 
     @GetMapping

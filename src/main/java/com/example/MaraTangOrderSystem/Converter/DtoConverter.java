@@ -1,14 +1,10 @@
 package com.example.MaraTangOrderSystem.Converter;
 
 import com.example.MaraTangOrderSystem.dto.*;
-import com.example.MaraTangOrderSystem.dto.OrderDto;
 import com.example.MaraTangOrderSystem.model.Ingredient;
 import com.example.MaraTangOrderSystem.model.Order;
 import com.example.MaraTangOrderSystem.model.OrderDetail;
 import com.example.MaraTangOrderSystem.model.User;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class DtoConverter {
     public static OrderResponseDto convertToOrderResponseDto(Order order) {

@@ -1,9 +1,7 @@
 package com.example.MaraTangOrderSystem.controller;
 
-import com.example.MaraTangOrderSystem.dto.OrderDto;
 import com.example.MaraTangOrderSystem.dto.OrderRequestDto;
 import com.example.MaraTangOrderSystem.dto.OrderResponseDto;
-import com.example.MaraTangOrderSystem.model.*;
 import com.example.MaraTangOrderSystem.service.OrderService;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,13 +21,13 @@ public class OrderController {
     }
 
     @GetMapping
-    public List<OrderDto> viewOrders() {
+    public List<OrderResponseDto> viewOrders() {
         return orderService.getAllOrders();
     }
 
     @PutMapping("/{orderId}")
-    public OrderDto editOrder(@PathVariable Long orderId, @RequestParam Integer newQuantity) {
-        return orderService.updateOrderQuantity(orderId, newQuantity);
+    public OrderResponseDto editOrder(@RequestBody OrderRequestDto updatedOrderRequestDto) {
+        return orderService.updateOrder(updatedOrderRequestDto);
     }
 
     @DeleteMapping("/{orderId}")

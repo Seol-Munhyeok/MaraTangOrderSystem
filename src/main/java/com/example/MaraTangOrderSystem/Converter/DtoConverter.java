@@ -11,14 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DtoConverter {
-    public static List<OrderDto> convertToOrderDtos(List<Order> orders) {
-        List<OrderDto> orderDtos = new ArrayList<>();
-        for (Order order : orders) {
-            orderDtos.add(convertToOrderDto(order));
-        }
-        return orderDtos;
-    }
-
     public static OrderResponseDto convertToOrderResponseDto(Order order) {
         return new OrderResponseDto(
                 order.getId(),

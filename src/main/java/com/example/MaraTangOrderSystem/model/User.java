@@ -2,10 +2,10 @@ package com.example.MaraTangOrderSystem.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 import java.util.List;
-import java.util.Optional;
 
 @Entity
 @Table(name = "users")
@@ -16,11 +16,23 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true, nullable = false)
+    private String email;
+
+    @Column(nullable = false)
+    private String password;
+
+    @Column(nullable = false)
+    private String nickname;
+
+    @Setter
     @Column(nullable = false)
     private String name;
 
+    @Setter
     private String phoneNumber;
 
+    @Setter
     @Column(nullable = false)
     private Integer spicinessLevel;
 
@@ -29,15 +41,15 @@ public class User {
 
     protected User() {}
 
-    public User(String name, String phoneNumber, Integer spicinessLevel, List<Order> orders) {
-        this.name = name;
-        this.phoneNumber = phoneNumber;
-        this.spicinessLevel = spicinessLevel;
-        this.orders = orders;
+    public static User create(String email, String password, String nickname) {
+        User user = new User();
+        user.email = email;
+        user.password = password;
+        user.nickname = nickname;
+        return user;
     }
 
     public String getPhoneNumber() {
         return phoneNumber != null ? phoneNumber : "N/A";
     }
 }
-

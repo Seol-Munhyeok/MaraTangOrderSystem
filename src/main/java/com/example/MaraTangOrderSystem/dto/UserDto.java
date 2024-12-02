@@ -12,6 +12,5 @@ public record UserDto(
         String nickname,
         String name,
         String phoneNumber,
-        Integer spicinessLevel,
         List<Order> orders
 ) {}

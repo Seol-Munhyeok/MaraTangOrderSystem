@@ -24,20 +24,16 @@ public class UserService {
         return DtoConverter.convertToUserDto(user);
     }
 
-    public User getUserById(Long id) {
-        return userRepository.findById(id).orElseThrow();
+    public UserDto getUserById(Long id) {
+        User user = userRepository.findById(id).orElseThrow();
+        return DtoConverter.convertToUserDto(user);
     }
 
     public UserDto signUpUser(SignUpUserDto signUpUserDto) {
         validateEmailDuplicate(signUpUserDto.email());
 
         String hashedPassword = passwordEncoder.encode(signUpUserDto.password());
-        User newUser = User.create(
-                signUpUserDto.email(),
-                hashedPassword,
-                signUpUserDto.nickname()
-        );
-
+        User newUser = DtoConverter.convertToUserDto(signUpUserDto, hashedPassword);
         userRepository.save(newUser);
 
         return DtoConverter.convertToUserDto(newUser);
@@ -48,6 +44,4 @@ public class UserService {
             throw new IllegalArgumentException("이미 존재하는 이메일입니다.");
         }
     }
-
-
 }

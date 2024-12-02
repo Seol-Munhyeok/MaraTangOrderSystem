@@ -10,6 +10,7 @@ import com.example.MaraTangOrderSystem.repository.IngredientRepository;
 import com.example.MaraTangOrderSystem.repository.OrderRepository;
 import com.example.MaraTangOrderSystem.repository.UserRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.data.annotation.ReadOnlyProperty;
 import org.springframework.data.domain.jaxb.SpringDataJaxb;
 import org.springframework.stereotype.Service;
 

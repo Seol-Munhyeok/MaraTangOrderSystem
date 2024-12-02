@@ -32,20 +32,17 @@ public class User {
     @Setter
     private String phoneNumber;
 
-    @Setter
-    @Column(nullable = false)
-    private Integer spicinessLevel;
-
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Order> orders;
 
     protected User() {}
 
-    public static User create(String email, String password, String nickname) {
+    public static User create(String email, String password, String nickname, String name) {
         User user = new User();
         user.email = email;
         user.password = password;
         user.nickname = nickname;
+        user.name = name;
         return user;
     }
 

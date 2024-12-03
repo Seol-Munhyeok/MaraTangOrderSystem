@@ -1,11 +1,9 @@
 package com.example.MaraTangOrderSystem.controller;
 
-import com.example.MaraTangOrderSystem.dto.OrderRequestDto;
-import com.example.MaraTangOrderSystem.dto.OrderResponseDto;
+import com.example.MaraTangOrderSystem.dto.Order.OrderRequestDto;
+import com.example.MaraTangOrderSystem.dto.Order.OrderResponseDto;
 import com.example.MaraTangOrderSystem.service.OrderService;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/orders")

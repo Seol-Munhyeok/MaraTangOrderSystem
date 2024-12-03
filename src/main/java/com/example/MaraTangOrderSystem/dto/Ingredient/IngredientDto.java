@@ -1,4 +1,4 @@
-package com.example.MaraTangOrderSystem.dto;
+package com.example.MaraTangOrderSystem.dto.Ingredient;
 
 import com.example.MaraTangOrderSystem.model.OrderDetail;
 

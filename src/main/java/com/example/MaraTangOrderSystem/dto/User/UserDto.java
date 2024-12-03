@@ -1,7 +1,6 @@
-package com.example.MaraTangOrderSystem.dto;
+package com.example.MaraTangOrderSystem.dto.User;
 
 import com.example.MaraTangOrderSystem.model.Order;
-import com.example.MaraTangOrderSystem.model.OrderDetail;
 
 import java.util.List;
 

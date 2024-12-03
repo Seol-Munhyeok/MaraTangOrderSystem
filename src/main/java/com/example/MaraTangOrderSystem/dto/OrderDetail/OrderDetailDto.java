@@ -1,4 +1,4 @@
-package com.example.MaraTangOrderSystem.dto;
+package com.example.MaraTangOrderSystem.dto.OrderDetail;
 
 public record OrderDetailDto(
         Long ingredientId,

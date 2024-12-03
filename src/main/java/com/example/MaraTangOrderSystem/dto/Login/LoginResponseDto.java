@@ -1,4 +1,4 @@
-package com.example.MaraTangOrderSystem.dto;
+package com.example.MaraTangOrderSystem.dto.Login;
 
 public record LoginResponseDto (
         Long userId,

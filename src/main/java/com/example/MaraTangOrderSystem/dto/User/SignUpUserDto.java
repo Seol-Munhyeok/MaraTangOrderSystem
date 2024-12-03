@@ -1,4 +1,4 @@
-package com.example.MaraTangOrderSystem.dto;
+package com.example.MaraTangOrderSystem.dto.User;
 
 public record SignUpUserDto(
         String email,

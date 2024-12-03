@@ -1,10 +1,11 @@
 package com.example.MaraTangOrderSystem.service;
 
-import com.example.MaraTangOrderSystem.Converter.DtoConverter;
-import com.example.MaraTangOrderSystem.dto.LoginRequestDto;
-import com.example.MaraTangOrderSystem.dto.LoginResponseDto;
-import com.example.MaraTangOrderSystem.dto.SignUpUserDto;
-import com.example.MaraTangOrderSystem.dto.UserDto;
+import com.example.MaraTangOrderSystem.Converter.LoginConverter;
+import com.example.MaraTangOrderSystem.Converter.UserConverter;
+import com.example.MaraTangOrderSystem.dto.Login.LoginRequestDto;
+import com.example.MaraTangOrderSystem.dto.Login.LoginResponseDto;
+import com.example.MaraTangOrderSystem.dto.User.SignUpUserDto;
+import com.example.MaraTangOrderSystem.dto.User.UserDto;
 import com.example.MaraTangOrderSystem.model.User;
 import com.example.MaraTangOrderSystem.repository.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -23,22 +24,22 @@ public class UserService {
     public UserDto saveUser(UserDto userDto) {
         User user = userRepository.findById(userDto.userId()).orElseThrow();
         userRepository.save(user);
-        return DtoConverter.convertToUserDto(user);
+        return UserConverter.convertToUserDto(user);
     }
 
     public UserDto getUserById(Long id) {
         User user = userRepository.findById(id).orElseThrow();
-        return DtoConverter.convertToUserDto(user);
+        return UserConverter.convertToUserDto(user);
     }
 
     public UserDto signUpUser(SignUpUserDto signUpUserDto) {
         validateEmailDuplicate(signUpUserDto.email());
 
         String hashedPassword = passwordEncoder.encode(signUpUserDto.password());
-        User newUser = DtoConverter.convertToUserDto(signUpUserDto, hashedPassword);
+        User newUser = UserConverter.convertToUserDto(signUpUserDto, hashedPassword);
         userRepository.save(newUser);
 
-        return DtoConverter.convertToUserDto(newUser);
+        return UserConverter.convertToUserDto(newUser);
     }
 
     private void validateEmailDuplicate(String email) {
@@ -48,17 +49,20 @@ public class UserService {
     }
 
     public LoginResponseDto userLogin(LoginRequestDto loginRequestDto) {
-        User user = userRepository.findByEmail(loginRequestDto.email()).orElseThrow();
-        if (!passwordEncoder.matches(loginRequestDto.password(), user.getPassword())) {
-            throw new IllegalArgumentException("비밀번호가 올바르지 않습니다.");
-        }
+        User user = getUserIfEmailExists(loginRequestDto.email());
+        validatePassword(loginRequestDto.password(), user.getPassword());
 
-        return new LoginResponseDto(
-                user.getId(),
-                user.getName(),
-                user.getNickname(),
-                user.getEmail(),
-                "로그인에 성공했습니다."
-        );
+        return LoginConverter.convertToLoginResponseDto(user, "로그인에 성공했습니다.");
+    }
+
+    private User getUserIfEmailExists(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(()-> new IllegalArgumentException("이메일이 존재하지 않습니다."));
+    }
+
+    private void validatePassword(String inputPassword, String expectedPassword) {
+        if (!passwordEncoder.matches(inputPassword, expectedPassword)) {
+            throw new IllegalArgumentException("비밀번호가 틀렸습니다.");
+        }
     }
 }

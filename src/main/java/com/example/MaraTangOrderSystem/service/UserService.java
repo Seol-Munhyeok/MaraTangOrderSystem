@@ -1,6 +1,8 @@
 package com.example.MaraTangOrderSystem.service;
 
 import com.example.MaraTangOrderSystem.Converter.DtoConverter;
+import com.example.MaraTangOrderSystem.dto.LoginRequestDto;
+import com.example.MaraTangOrderSystem.dto.LoginResponseDto;
 import com.example.MaraTangOrderSystem.dto.SignUpUserDto;
 import com.example.MaraTangOrderSystem.dto.UserDto;
 import com.example.MaraTangOrderSystem.model.User;
@@ -43,5 +45,20 @@ public class UserService {
         if (userRepository.findByEmail(email).isPresent()) {
             throw new IllegalArgumentException("이미 존재하는 이메일입니다.");
         }
+    }
+
+    public LoginResponseDto userLogin(LoginRequestDto loginRequestDto) {
+        User user = userRepository.findByEmail(loginRequestDto.email()).orElseThrow();
+        if (!passwordEncoder.matches(loginRequestDto.password(), user.getPassword())) {
+            throw new IllegalArgumentException("비밀번호가 올바르지 않습니다.");
+        }
+
+        return new LoginResponseDto(
+                user.getId(),
+                user.getName(),
+                user.getNickname(),
+                user.getEmail(),
+                "로그인에 성공했습니다."
+        );
     }
 }

@@ -1,9 +1,6 @@
 package com.example.MaraTangOrderSystem.controller;
 
-import com.example.MaraTangOrderSystem.dto.OrderRequestDto;
-import com.example.MaraTangOrderSystem.dto.OrderResponseDto;
-import com.example.MaraTangOrderSystem.dto.SignUpUserDto;
-import com.example.MaraTangOrderSystem.dto.UserDto;
+import com.example.MaraTangOrderSystem.dto.*;
 import com.example.MaraTangOrderSystem.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,8 +28,9 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(userDto);
     }
 
-
-
-
-
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponseDto> loginUser(@RequestBody LoginRequestDto loginRequestDto) {
+        LoginResponseDto loginResponseDto = userService.userLogin(loginRequestDto);
+        return ResponseEntity.status(HttpStatus.OK).body(loginResponseDto);
+    }
 }

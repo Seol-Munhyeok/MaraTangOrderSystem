@@ -15,6 +15,7 @@ public class OrderController {
 
     @PostMapping
     public OrderResponseDto addOrder(@RequestBody OrderRequestDto orderRequestDto) {
+        Long loggedInUserId = getLoggedInUserId();
         return orderService.saveOrder(orderRequestDto);
     }
 }

@@ -92,7 +92,6 @@ public class UserService {
         }
     }
 
-
     private void validateEmailDuplicate(String email) {
         if (userRepository.findByEmail(email).isPresent()) {
             throw new EmailAlreadyExistsException("이미 존재하는 이메일입니다.");

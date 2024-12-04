@@ -3,6 +3,7 @@ package com.example.MaraTangOrderSystem.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -22,7 +23,7 @@ public class Order {
     private Integer spicinessLevel;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<OrderDetail> orderDetails;
+    private List<OrderDetail> orderDetails = new ArrayList<>();;
 
     @Setter
     private Integer totalPrice = 0;
@@ -33,5 +34,6 @@ public class Order {
         this.user = user;
         this.totalPrice = totalPrice;
         this.spicinessLevel = (spicinessLevel != null) ? spicinessLevel : 0;
+        this.orderDetails = new ArrayList<>();
     }
 }

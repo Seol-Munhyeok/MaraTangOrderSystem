@@ -3,8 +3,10 @@ package com.example.MaraTangOrderSystem.service;
 import com.example.MaraTangOrderSystem.converter.OrderConverter;
 import com.example.MaraTangOrderSystem.dto.Order.OrderRequestDto;
 import com.example.MaraTangOrderSystem.dto.Order.OrderResponseDto;
+import com.example.MaraTangOrderSystem.dto.OrderDetail.OrderDetailDto;
 import com.example.MaraTangOrderSystem.model.Order;
 import com.example.MaraTangOrderSystem.model.OrderDetail;
+import com.example.MaraTangOrderSystem.model.User;
 import com.example.MaraTangOrderSystem.repository.IngredientRepository;
 import com.example.MaraTangOrderSystem.repository.OrderRepository;
 import com.example.MaraTangOrderSystem.repository.UserRepository;
@@ -17,9 +19,11 @@ import java.util.Objects;
 @Service
 public class OrderService {
     private final OrderRepository orderRepository;
+    private final IngredientRepository ingredientRepository;
 
     public OrderService(OrderRepository orderRepository, IngredientRepository ingredientRepository, UserRepository userRepository) {
         this.orderRepository = orderRepository;
+        this.ingredientRepository = ingredientRepository;
     }
 
     @Transactional
@@ -71,5 +75,13 @@ public class OrderService {
         return quantity * ingredientPrice;
     }
 
+    public OrderResponseDto createOrderAndSave(OrderRequestDto orderRequestDto, User user) {
+        Order order = OrderConverter.convertToOrder(orderRequestDto, user, ingredientRepository);
+        int totalPrice = calculateOrderTotalPrice(order);
+        order.setTotalPrice(totalPrice);
+        orderRepository.save(order);
+
+        return OrderConverter.convertToOrderResponseDto(order);
+    }
 
 }

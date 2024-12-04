@@ -17,6 +17,7 @@ public enum IngredientType {
 
     private final String name;
     private final int price;
+
     IngredientType(String name, int price) {
         this.name = name;
         this.price = price;

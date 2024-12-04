@@ -1,21 +1,38 @@
 package com.example.MaraTangOrderSystem.config;
 
+import com.example.MaraTangOrderSystem.model.User;
+import com.example.MaraTangOrderSystem.repository.UserRepository;
 import io.micrometer.common.lang.NonNull;
 import io.micrometer.common.lang.Nullable;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 @Component
 public class LoginInterceptor implements HandlerInterceptor {
+    private final UserRepository userRepository;
+
+    public LoginInterceptor(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
     @Override
     public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) throws Exception {
-        if (request.getSession().getAttribute("user") == null) {
-            response.sendRedirect("/login");
+        Long userId = (Long) request.getSession().getAttribute("userId");
+        if (userId == null) {
+            response.setStatus(HttpStatus.UNAUTHORIZED.value());
             return false;
         }
+
+        User user = userRepository.findById(userId).orElse(null);
+        if (user == null) {
+            response.setStatus(HttpStatus.UNAUTHORIZED.value());
+            return false;
+        }
+
         return true;
     }
 

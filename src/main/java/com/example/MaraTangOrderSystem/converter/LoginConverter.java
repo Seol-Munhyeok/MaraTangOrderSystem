@@ -1,4 +1,4 @@
-package com.example.MaraTangOrderSystem.Converter;
+package com.example.MaraTangOrderSystem.converter;
 
 import com.example.MaraTangOrderSystem.dto.Login.LoginResponseDto;
 import com.example.MaraTangOrderSystem.model.User;

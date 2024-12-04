@@ -8,10 +8,8 @@ import com.example.MaraTangOrderSystem.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/users")
@@ -26,9 +24,11 @@ public class UserController {
         return userService.saveUser(userDto);
     }
 
-    @PostMapping("/signup")
-    public ResponseEntity<UserDto> signUpUser(@RequestBody SignUpUserDto signUpUserDto) {
-        UserDto userDto = userService.signUpUser(signUpUserDto);
+    @PostMapping(value = "/signup", consumes = "multipart/form-data")
+    public ResponseEntity<UserDto> signUpUser(
+            @RequestPart("user") SignUpUserDto signUpUserDto,
+            @RequestPart(value = "image", required = false) MultipartFile image) {
+        UserDto userDto = userService.signUpUser(signUpUserDto, image);
         return ResponseEntity.status(HttpStatus.CREATED).body(userDto);
     }
 

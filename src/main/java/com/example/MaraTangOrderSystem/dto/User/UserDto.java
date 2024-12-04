@@ -11,5 +11,6 @@ public record UserDto(
         String nickname,
         String name,
         String phoneNumber,
-        List<Order> orders
+        List<Order> orders,
+        String profileImage
 ) {}

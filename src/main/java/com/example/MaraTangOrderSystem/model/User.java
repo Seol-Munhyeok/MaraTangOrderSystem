@@ -32,21 +32,29 @@ public class User {
     @Setter
     private String phoneNumber;
 
+    @Setter
+    private String profileImagePath;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Order> orders;
 
     protected User() {}
 
-    public static User create(String email, String password, String nickname, String name) {
+    public static User create(String email, String password, String nickname, String name, String profileImagePath) {
         User user = new User();
         user.email = email;
         user.password = password;
         user.nickname = nickname;
         user.name = name;
+        user.profileImagePath = profileImagePath;
         return user;
     }
 
     public String getPhoneNumber() {
         return phoneNumber != null ? phoneNumber : "N/A";
+    }
+
+    public String getProfileImagePath() {
+        return profileImagePath != null ? profileImagePath : "/images/default-profile.png";
     }
 }

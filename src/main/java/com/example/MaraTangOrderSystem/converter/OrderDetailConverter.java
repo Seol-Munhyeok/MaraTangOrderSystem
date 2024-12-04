@@ -1,4 +1,4 @@
-package com.example.MaraTangOrderSystem.Converter;
+package com.example.MaraTangOrderSystem.converter;
 
 import com.example.MaraTangOrderSystem.dto.OrderDetail.OrderDetailDto;
 import com.example.MaraTangOrderSystem.model.OrderDetail;

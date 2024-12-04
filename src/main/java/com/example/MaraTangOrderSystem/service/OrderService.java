@@ -1,6 +1,6 @@
 package com.example.MaraTangOrderSystem.service;
 
-import com.example.MaraTangOrderSystem.Converter.OrderConverter;
+import com.example.MaraTangOrderSystem.converter.OrderConverter;
 import com.example.MaraTangOrderSystem.dto.Order.OrderRequestDto;
 import com.example.MaraTangOrderSystem.dto.Order.OrderResponseDto;
 import com.example.MaraTangOrderSystem.model.Order;

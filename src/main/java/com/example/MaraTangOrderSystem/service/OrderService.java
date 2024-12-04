@@ -1,23 +1,18 @@
 package com.example.MaraTangOrderSystem.service;
 
-import com.example.MaraTangOrderSystem.Converter.DtoConverter;
-import com.example.MaraTangOrderSystem.dto.OrderRequestDto;
-import com.example.MaraTangOrderSystem.dto.OrderResponseDto;
+import com.example.MaraTangOrderSystem.Converter.OrderConverter;
+import com.example.MaraTangOrderSystem.dto.Order.OrderRequestDto;
+import com.example.MaraTangOrderSystem.dto.Order.OrderResponseDto;
 import com.example.MaraTangOrderSystem.model.Order;
 import com.example.MaraTangOrderSystem.model.OrderDetail;
-import com.example.MaraTangOrderSystem.model.User;
 import com.example.MaraTangOrderSystem.repository.IngredientRepository;
 import com.example.MaraTangOrderSystem.repository.OrderRepository;
 import com.example.MaraTangOrderSystem.repository.UserRepository;
 import jakarta.transaction.Transactional;
-import org.springframework.data.annotation.ReadOnlyProperty;
-import org.springframework.data.domain.jaxb.SpringDataJaxb;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Service
 public class OrderService {
@@ -31,7 +26,7 @@ public class OrderService {
     public OrderResponseDto saveOrder(OrderRequestDto orderRequestDto) {
         Order order = orderRepository.findById(orderRequestDto.orderId()).orElseThrow(() -> new RuntimeException("Order not found"));
         orderRepository.save(order);
-        return DtoConverter.convertToOrderResponseDto(order);
+        return OrderConverter.convertToOrderResponseDto(order);
     }
 
     @Transactional
@@ -40,7 +35,7 @@ public class OrderService {
         Order existingOrder = orderRepository.findById(orderId).orElseThrow(() -> new RuntimeException("Order not found"));
         existingOrder.setTotalPrice(calculateOrderTotalPrice(existingOrder));
         Order savedOrder = orderRepository.save(existingOrder);
-        return DtoConverter.convertToOrderResponseDto(savedOrder);
+        return OrderConverter.convertToOrderResponseDto(savedOrder);
     }
 
     @Transactional
@@ -52,7 +47,7 @@ public class OrderService {
     public List<OrderResponseDto> getAllOrders() {
         List<Order> orders = orderRepository.findAll();
         return orders.stream()
-                .map(DtoConverter::convertToOrderResponseDto)
+                .map(OrderConverter::convertToOrderResponseDto)
                 .toList();
     }
 

@@ -1,10 +1,11 @@
 package com.example.MaraTangOrderSystem.controller;
 
-import com.example.MaraTangOrderSystem.dto.OrderRequestDto;
-import com.example.MaraTangOrderSystem.dto.OrderResponseDto;
-import com.example.MaraTangOrderSystem.dto.SignUpUserDto;
-import com.example.MaraTangOrderSystem.dto.UserDto;
+import com.example.MaraTangOrderSystem.dto.Login.LoginRequestDto;
+import com.example.MaraTangOrderSystem.dto.Login.LoginResponseDto;
+import com.example.MaraTangOrderSystem.dto.User.SignUpUserDto;
+import com.example.MaraTangOrderSystem.dto.User.UserDto;
 import com.example.MaraTangOrderSystem.service.UserService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,8 +32,18 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(userDto);
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponseDto> loginUser(
+            @RequestBody LoginRequestDto loginRequestDto,
+            HttpSession session) {
+        LoginResponseDto loginResponseDto = userService.userLogin(loginRequestDto);
+        session.setAttribute("userId", loginResponseDto.userId());
+        return ResponseEntity.status(HttpStatus.OK).body(loginResponseDto);
+    }
 
-
-
-
+    @PostMapping("/logout")
+    public ResponseEntity<String> logoutUser(HttpSession session) {
+        session.invalidate();
+        return ResponseEntity.status(HttpStatus.OK).body("로그아웃 했습니다.");
+    }
 }

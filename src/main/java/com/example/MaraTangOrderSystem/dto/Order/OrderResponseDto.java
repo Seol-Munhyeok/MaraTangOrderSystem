@@ -1,6 +1,4 @@
-package com.example.MaraTangOrderSystem.dto;
-
-import java.util.List;
+package com.example.MaraTangOrderSystem.dto.Order;
 
 public record OrderResponseDto(
         Long orderId,

@@ -1,6 +1,6 @@
 package com.example.MaraTangOrderSystem.converter;
 
-import com.example.MaraTangOrderSystem.dto.OrderDetail.OrderDetailDto;
+import com.example.MaraTangOrderSystem.dto.Order.OrderDetailDto;
 import com.example.MaraTangOrderSystem.model.OrderDetail;
 
 public class OrderDetailConverter {

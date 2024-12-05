@@ -2,7 +2,7 @@ package com.example.MaraTangOrderSystem.converter;
 
 import com.example.MaraTangOrderSystem.dto.Order.OrderRequestDto;
 import com.example.MaraTangOrderSystem.dto.Order.OrderResponseDto;
-import com.example.MaraTangOrderSystem.dto.OrderDetail.OrderDetailDto;
+import com.example.MaraTangOrderSystem.dto.Order.OrderDetailDto;
 import com.example.MaraTangOrderSystem.model.Ingredient;
 import com.example.MaraTangOrderSystem.model.Order;
 import com.example.MaraTangOrderSystem.model.OrderDetail;

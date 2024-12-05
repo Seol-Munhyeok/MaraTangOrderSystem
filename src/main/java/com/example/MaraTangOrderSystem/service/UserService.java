@@ -6,12 +6,9 @@ import com.example.MaraTangOrderSystem.dto.Login.LoginRequestDto;
 import com.example.MaraTangOrderSystem.dto.Login.LoginResponseDto;
 import com.example.MaraTangOrderSystem.dto.User.SignUpUserDto;
 import com.example.MaraTangOrderSystem.dto.User.UserDto;
-import com.example.MaraTangOrderSystem.exception.ImageStorageException;
+import com.example.MaraTangOrderSystem.exception.*;
 import com.example.MaraTangOrderSystem.model.User;
 import com.example.MaraTangOrderSystem.repository.UserRepository;
-import com.example.MaraTangOrderSystem.exception.EmailAlreadyExistsException;
-import com.example.MaraTangOrderSystem.exception.EmailNotFoundException;
-import com.example.MaraTangOrderSystem.exception.InvalidPasswordException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -38,7 +35,8 @@ public class UserService {
     }
 
     public UserDto getUserById(Long id) {
-        User user = userRepository.findById(id).orElseThrow();
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("User with ID " + id + " not found."));
         return UserConverter.convertToUserDto(user);
     }
 
@@ -113,6 +111,12 @@ public class UserService {
     private void validatePassword(String inputPassword, String expectedPassword) {
         if (!passwordEncoder.matches(inputPassword, expectedPassword)) {
             throw new InvalidPasswordException("비밀번호가 틀렸습니다.");
+        }
+    }
+
+    public void validateUserSession(Long sessionUserId, Long requestUserId) {
+        if (!sessionUserId.equals(requestUserId)) {
+            throw new UnauthorizedAccessException("허가되지 않은 접근");
         }
     }
 }

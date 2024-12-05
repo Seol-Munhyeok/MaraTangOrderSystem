@@ -10,7 +10,7 @@ import com.example.MaraTangOrderSystem.model.User;
 import com.example.MaraTangOrderSystem.repository.IngredientRepository;
 import com.example.MaraTangOrderSystem.repository.OrderRepository;
 import com.example.MaraTangOrderSystem.repository.UserRepository;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -47,7 +47,7 @@ public class OrderService {
         orderRepository.deleteById(orderId);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<OrderResponseDto> getAllOrders() {
         List<Order> orders = orderRepository.findAll();
         return orders.stream()
